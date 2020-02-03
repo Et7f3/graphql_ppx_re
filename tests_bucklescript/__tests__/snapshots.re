@@ -18,45 +18,40 @@ let refmt =
   |> toString
   |> Js.String.trim;
 
-describe("Dummmy", () => {
-  test("test", () => {
-    expect(true) |> toBe(true)
-  })
+let run_ppx = (path, opts) => {
+  execSync(
+    "cat "
+    ++ path
+    ++ " | "
+    ++ refmt
+    ++ " --parse re --print binary | ../_build/default/src/bucklescript_bin/bin.exe -schema ../graphql_schema.json "
+    ++ opts
+    ++ " /dev/stdin /dev/stdout |  "
+    ++ refmt
+    ++ " --parse binary --print re --interface false",
+    {cwd: "."},
+  )
+  |> toString;
+};
+
+let tests = readdirSync("operations");
+
+describe("Objects (legacy)", () => {
+  tests
+  |> Array.map(t => {
+       test(t, () =>
+         expect(run_ppx("operations/" ++ t, "")) |> toMatchSnapshot
+       )
+     })
+  |> ignore
 });
-// let run_ppx = (path, opts) => {
-//   execSync(
-//     "cat "
-//     ++ path
-//     ++ " | "
-//     ++ refmt
-//     ++ " --parse re --print binary | ../_build/default/src/bucklescript_bin/bin.exe -schema ../graphql_schema.json "
-//     ++ opts
-//     ++ " /dev/stdin /dev/stdout |  "
-//     ++ refmt
-//     ++ " --parse binary --print re --interface false",
-//     {cwd: "."},
-//   )
-//   |> toString;
-// };
 
-// let tests = readdirSync("operations");
-
-// describe("Objects (legacy)", () => {
-//   tests
-//   |> Array.map(t => {
-//        test(t, () =>
-//          expect(run_ppx("operations/" ++ t, "")) |> toMatchSnapshot
-//        )
-//      })
-//   |> ignore
-// });
-
-// describe("Records", () => {
-//   tests
-//   |> Array.map(t => {
-//        test(t, () =>
-//          expect(run_ppx("operations/" ++ t, "-records")) |> toMatchSnapshot
-//        )
-//      })
-//   |> ignore
-// });
+describe("Records", () => {
+  tests
+  |> Array.map(t => {
+       test(t, () =>
+         expect(run_ppx("operations/" ++ t, "-records")) |> toMatchSnapshot
+       )
+     })
+  |> ignore
+});
