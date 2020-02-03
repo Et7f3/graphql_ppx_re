@@ -8,11 +8,11 @@
     "@opam/ocaml-migrate-parsetree": "*",
     "@opam/ppx_tools_versioned": "*",
     "@opam/reason": "*",
-    "@opam/menhir": "*",
-    "ocaml": "~4.9.0"
+    "@opam/menhir": "*"
   },
   "devDependencies": {
-    "@opam/alcotest": "*"
+    "@opam/alcotest": "*",
+    "ocaml": "~4.9.0"
   },
   "peerDependencies": {
     "ocaml": ">= 4.6.0"
