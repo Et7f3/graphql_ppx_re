@@ -60,6 +60,7 @@ jobs:
       - name: test-bsb6
         run: |
           cd tests_bucklescript
+          npm install
           npm test
         env:
           CI: true
@@ -131,6 +132,7 @@ jobs:
       - name: test-bsb6
         run: |
           cd tests_bucklescript
+          npm install
           npm test
       - name: (only on release) Upload artifacts ${{ matrix.os }}
         if: github.event_name != 'pull_request' && startsWith(github.ref, 'refs/tags/')
