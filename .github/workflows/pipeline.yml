@@ -58,8 +58,9 @@ jobs:
           esy @406 install
           esy @406 dune build --root . --only-packages '#{self.name}' --ignore-promoted-rules --no-config --profile release-static
       - name: test-bsb6
+        working-directory: ./tests_bucklescript
         run: |
-          cd tests_bucklescript && npm install && npm test
+          npm install && npm test
         env:
           CI: true
       - name: (only on release) Upload artifacts ${{ matrix.os }}
@@ -128,8 +129,9 @@ jobs:
           esy @406 install
           esy @406 b
       - name: test-bsb6
+        working-directory: ./tests_bucklescript
         run: |
-          cd tests_bucklescript && npm install && npm test
+          npm install && npm test
       - name: (only on release) Upload artifacts ${{ matrix.os }}
         if: github.event_name != 'pull_request' && startsWith(github.ref, 'refs/tags/')
         uses: actions/upload-artifact@master
