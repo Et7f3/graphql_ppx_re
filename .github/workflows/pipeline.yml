@@ -118,8 +118,7 @@ jobs:
       # Ocaml 4.08+
       - name: install-build
         run: |
-          esy "@406" install
-          esy "@406" b
+          esy install
       - name: test-native
         run: |
           esy b dune runtest -f
