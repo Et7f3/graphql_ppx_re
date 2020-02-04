@@ -44,9 +44,9 @@ jobs:
           restore-keys: |
             v1-esy-${{ matrix.os }}-
 
-      - name: Add python
+      - name: Install Alpine dependencies
         run: |
-          apk add python
+          apk add python libstdc++
       # Ocaml 4.08+
       - name: install-build
         run: |
