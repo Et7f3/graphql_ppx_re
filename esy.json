@@ -21,7 +21,9 @@
     "@opam/ocaml-lsp-server": "ocaml/ocaml-lsp:ocaml-lsp-server.opam#a83bd09",
     "@reason-native/rely": "*"
   },
-
+  "resolutions": {
+    "@opam/reason": "github:facebook/reason:reason.json#6017d6dd930f4989177c3f7c3c20cffbaabaa49a"
+  },
   "esy": {
     "build": "dune build -p #{self.name}",
     "buildDev": "refmterr dune build --promote-install-files --root .",
